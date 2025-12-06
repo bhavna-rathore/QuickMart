@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { loginService } from "../../services/Auth/Login"
 import styles from "./AuthLogin.module.css";
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -12,7 +11,6 @@ export function AuthLogin() {
   const [password, setPassword] = useState()
   const [email, setEmail] = useState("")
   const dispatch = useDispatch();
-  const { isAuth, loading, err } = useSelector(state => state.auth);
   const navigate = useNavigate();
 
   const validateEmail = () => {

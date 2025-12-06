@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { addCartService } from "../../services/Cart/AddCart"
 import { removeWishlistService } from "../../services/Wishlist/RemoveWishlist"
-// import "./Styles.css"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
 import { addToCartThunk } from "../../redux/slices/cartSlice"
