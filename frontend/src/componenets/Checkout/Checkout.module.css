@@ -1,0 +1,170 @@
+/* -------- Page Wrapper -------- */
+.pageWrapper {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  color: white;
+  margin-top :4rem
+}
+
+/* Main Layout */
+.checkoutPageContainer {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+/* -------- Address Section (LEFT) -------- */
+.addressSection {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+
+.sectionHeader {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+.addressCard {
+  background: #0f0f25;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.addressCard:hover {
+  background: #151532;
+  transform: translateY(-2px);
+}
+
+.selectedAddress {
+  border: 2px solid var(--primary);
+  background: #182444;
+}
+
+.addressName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.addAddressButton {
+  background: var(--primary);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  color: #06121a;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+/* -------- Summary Section (RIGHT) -------- */
+.orderSection {
+}
+
+.orderBox {
+  background: #13132b;
+  padding: 1.7rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 5px 18px rgba(0,0,0,0.45);
+}
+
+.summaryHeader {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Cart item list */
+.summaryListItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Cost breakdown box */
+.costBreakdown {
+  margin-top: 1rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.7rem 0;
+}
+
+.totalAmount {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Final selected address box */
+.finalAddressBox {
+  background: #1c1c38;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 0.7rem;
+  border-left: 4px solid var(--primary);
+}
+
+.noAddressSelected {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.addressHeader {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Savings */
+.savingsText {
+  color: var(--success);
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* Place Order Button */
+.placeOrderButton {
+  background: var(--primary);
+  padding: 0.9rem;
+  width: 100%;
+  border-radius: 10px;
+  color: #030a11;
+  font-weight: 800;
+  font-size: 1.1rem;
+  transition: 0.2s;
+  margin-top: 1rem;
+}
+
+.placeOrderButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* Not logged in */
+.notLoggedIn {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* -------- Responsive -------- */
+@media (max-width: 900px) {
+  .checkoutPageContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .orderBox {
+    margin-top: 1.5rem;
+  }
+}

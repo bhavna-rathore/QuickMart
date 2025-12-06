@@ -1,0 +1,72 @@
+a.ProfileContainer {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.Profile {
+  /* width: 60%; */
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.UserDetails {
+  margin-bottom: 2rem;
+}
+
+.userDetailsHeading {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.userDetailsText {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.addressContainerHeader {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.addressCard {
+  background: #1a1a30;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 0.6rem 0;
+}
+
+.addressCard button {
+  background: var(--danger);
+  padding: 0.4rem 0.8rem;
+  margin-top: 0.7rem;
+  border-radius: 6px;
+  color: white;
+}
+.AddressContainer {
+  margin-top: 2rem;
+}
+
+.addAddressButton {
+  background: var(--primary);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.addressName {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.deleteButton {
+  background: var(--danger);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  color: white;
+  margin-top: 0.6rem;
+}
+

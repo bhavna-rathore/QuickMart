@@ -1,0 +1,112 @@
+/* -------- NAVBAR CONTAINER -------- */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  z-index: 3000;
+
+  background-color: #070720cc; /* slight transparency for a premium look */
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.8rem 2rem;
+  border-bottom: 1px solid #1f1f33;
+}
+
+
+/* -------- TITLE -------- */
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* -------- SEARCH BAR -------- */
+/* SEARCH BAR WRAPPER */
+.searchWrapper {
+  position: relative;
+  width: 260px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 2.2rem 0.5rem 0.8rem; /* extra right padding for icon */
+  background: transparent;
+  border: 1.5px solid #2d2d42;
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 6px rgba(41, 185, 240, 0.4);
+}
+
+/* ICON INSIDE INPUT */
+.searchIconInside {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.searchIconInside:hover {
+  color: white;
+}
+
+/* -------- NAV ICONS -------- */
+.navItems {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  color: white;
+  font-size: 1.3rem;
+  position: relative;
+}
+
+/* -------- BADGE -------- */
+.badgeContainer {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: var(--accent);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0px 6px;
+  border-radius: 50%;
+}
+
+/* -------- RESPONSIVE -------- */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .searchBarContainer {
+    width: 100%;
+  }
+
+  .navItems {
+    gap: 1rem;
+  }
+}

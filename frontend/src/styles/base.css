@@ -1,0 +1,50 @@
+/* --------- RESET --------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0d0d1f;
+  color: white;
+  min-height: 100vh;
+}
+
+/* --------- COLORS --------- */
+:root {
+  --primary: #29b9f0;
+  --secondary: #1f1f33;
+  --card-bg: #0f0f25;
+  --accent: #ef476f;
+  --success: #06d6a0;
+  --warning: #ffd166;
+  --danger: #ef476f;
+}
+
+/* --------- GLOBAL TEXT --------- */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+/* --------- SCROLLBAR --------- */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}

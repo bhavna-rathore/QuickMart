@@ -1,0 +1,221 @@
+/* ─────────────────────────────
+    CART PAGE LAYOUT
+─────────────────────────────── */
+
+.cartPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 30rem;
+}
+
+.cartItems {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 18rem;
+}
+
+.cartDetails {
+  width: 30%;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+
+}
+
+/* ─────────────────────────────
+    CART CARD
+─────────────────────────────── */
+
+.cartCard {
+  display: flex;
+  gap: 1rem;
+  background: var(--secondary);
+  padding: 1rem;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.thumbnail {
+  width: 400px;
+  /* height: 120px; */
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.category {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 0.3rem;
+}
+
+.priceRow {
+  margin: 0.4rem 0;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-left: 0.5rem;
+}
+
+.discount {
+  margin-left: 0.7rem;
+  color: var(--success);
+  font-weight: bold;
+}
+
+/* ─────────────────────────────
+    QUANTITY CONTROLS
+─────────────────────────────── */
+
+.quantityRow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0.6rem 0;
+  justify-content: center;
+}
+
+.qtyBtn {
+  background: var(--primary);
+  color: white;
+  border-radius: 5px;
+  padding: 0.3rem 0.7rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.qtyValue {
+  font-size: 1.1rem;
+}
+
+/* ─────────────────────────────
+    BUTTONS
+─────────────────────────────── */
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.7rem;
+
+}
+
+.removeBtn,
+.wishlistBtn {
+  width: 185px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.2s ease;
+
+}
+
+.removeBtn {
+  background: var(--danger);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.removeBtn:hover {
+  background: #c72f4c;
+}
+
+.wishlistBtn {
+  background: var(--primary);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.wishlistBtn:hover {
+  background: #1fa0cb;
+}
+
+/* ─────────────────────────────
+    CART SUMMARY
+─────────────────────────────── */
+
+.summaryTitle {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.7rem 0;
+}
+
+.totalRow {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0.8rem 0;
+}
+
+.savings {
+  font-size: 0.9rem;
+  color: var(--success);
+  margin-bottom: 1rem;
+}
+
+.checkoutBtn {
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: 0.2s ease;
+}
+
+.checkoutBtn:hover {
+  background: #1fa0cb;
+}
+
+/* ─────────────────────────────
+    EMPTY CART
+─────────────────────────────── */
+
+.emptyCart {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-top: 3rem;
+}
