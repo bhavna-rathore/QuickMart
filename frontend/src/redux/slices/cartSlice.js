@@ -21,7 +21,7 @@ export const addToCartThunk = createAsyncThunk(
   "cart/addToCart",
   async (product, { rejectWithValue }) => {
     try {
-      debugger
+      
       const res = await api.post(
         "/api/user/cart",
         { product },

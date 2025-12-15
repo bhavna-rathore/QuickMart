@@ -41,7 +41,6 @@ export const removeFromWishlistThunk = createAsyncThunk(
   "wishlist/remove",
   async (id, { rejectWithValue }) => {
     try {
-      debugger
       const res = await api.delete(`/api/user/wishlist/${id}`, {
         headers: { authorization: localStorage.getItem("Token") }
       });

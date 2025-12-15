@@ -14,7 +14,6 @@ function CheckoutComp() {
   const { addresses } = useSelector(state => state.address);
 
   const [address, setAddress] = useState(addresses || []);
-  debugger
   const [selectedAddress, setSelectedAddress] = useState({});
 
   const { myCart } = useSelector((state) => state.cart);

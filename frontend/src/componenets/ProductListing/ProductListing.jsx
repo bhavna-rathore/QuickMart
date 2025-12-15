@@ -35,7 +35,7 @@ export function ProductListing() {
   const { isAuth } = useSelector(state => state.auth);
 // FETCH addresses from backend on mount
   useEffect(() => {
-    debugger
+    
     if (isAuth) dispatch(fetchAddressesThunk());
   }, [dispatch, isAuth]);
 

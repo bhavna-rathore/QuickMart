@@ -75,7 +75,7 @@ const addressSlice = createSlice({
             .addMatcher(
                 (a) => a.type.startsWith("address") && a.type.endsWith("fulfilled"),
                 (state, action) => {
-                    debugger
+                    
                     state.loading = false;
                     state.addresses = action.payload;
                 }

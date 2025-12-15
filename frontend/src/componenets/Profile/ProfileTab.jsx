@@ -16,7 +16,7 @@ export function ProfileTab() {
 
   // Delete address from backend
   const handleDeleteAddress = (id) => {
-    debugger
+    
     dispatch(deleteAddressThunk(id));
   };
 
