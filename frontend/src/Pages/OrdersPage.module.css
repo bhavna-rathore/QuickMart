@@ -1,0 +1,120 @@
+.ordersPage {
+    padding: 2rem;
+    background: #0b0c1a;
+    min-height: 100vh;
+    color: white;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.ordersList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.orderCard {
+    background: #111325;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid #20233a;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+}
+
+.orderHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.orderLabel {
+    font-weight: 500;
+}
+
+.orderDate {
+    color: #9ea4c9;
+    font-size: 0.9rem;
+}
+
+.itemList {
+    border-top: 1px solid #2a2d47;
+    border-bottom: 1px solid #2a2d47;
+    padding: 1rem 0;
+    margin: 1rem 0;
+}
+
+.itemRow {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.itemRow:last-child {
+    margin-bottom: 0;
+}
+
+.itemImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.itemDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.itemName {
+    font-size: 1.1rem;
+}
+
+.itemQty {
+    color: #b3b8d4;
+}
+
+.itemPrice {
+    font-weight: 600;
+}
+
+.orderFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 1rem;
+}
+
+.totalText {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.addressBox {
+    background: #191b2f;
+    padding: 0.8rem;
+    border-radius: 8px;
+    width: 350px;
+    font-size: 0.9rem;
+}
+
+.addressTitle {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.message {
+    padding: 2rem;
+    font-size: 1.3rem;
+    text-align: center;
+}

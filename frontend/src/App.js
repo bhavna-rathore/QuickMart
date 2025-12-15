@@ -18,6 +18,7 @@ import Footer from "./layouts/Footer/Footer";
 import { useEffect } from "react";
 import { fetchCategories, fetchProducts } from "./redux/slices/productSlice";
 import { useDispatch } from "react-redux";
+import OrdersPage from "./Pages/OrdersPage";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route element={<RequiresAuth />}>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishListPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
         </Route>
       </Routes>
       <ToastContainer />
