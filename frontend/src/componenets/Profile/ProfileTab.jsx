@@ -1,22 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddressModel from "../AdressModel/AddressModel";
 import styles from "./ProfileTab.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAddressThunk, fetchAddressesThunk } from "../../redux/slices/addressSlice";
 
 export function ProfileTab() {
+ const dispatch = useDispatch();
+
+  const { user } = useSelector(state => state.auth);
+  const { addresses } = useSelector(state => state.address);
+  const { isAuth } = useSelector(state => state.auth);
+
   const [showAddressModel, setShowAddressModel] = useState(false);
 
-  const localAddress = JSON.parse(localStorage.getItem("userAddress")) || [];
-  const [address, setAddress] = useState(localAddress);
 
-  const { user } = useSelector((state) => state.auth);
-
-  const handleDeleteAddress = (item) => {
-    const updatedAddress = address.filter(
-      (addressItem) => addressItem.tempName !== item.tempName
-    );
-    setAddress(updatedAddress);
-    localStorage.setItem("userAddress", JSON.stringify(updatedAddress));
+  // Delete address from backend
+  const handleDeleteAddress = (id) => {
+    debugger
+    dispatch(deleteAddressThunk(id));
   };
 
   return (
@@ -43,7 +44,7 @@ export function ProfileTab() {
             Add New Address
           </button>
 
-          {address.map((item) => (
+          {addresses.map((item) => (
             <div className={styles.addressCard} key={item.tempName}>
               <p className={styles.addressName}>{item.tempName}</p>
               <p>
@@ -67,8 +68,8 @@ export function ProfileTab() {
           <AddressModel
             showAddressModel={showAddressModel}
             onClose={() => setShowAddressModel(false)}
-            address={address}
-            setAddress={setAddress}
+            // address={addresses}
+            // setAddress={setAddress}
           />
         )}
       </div>

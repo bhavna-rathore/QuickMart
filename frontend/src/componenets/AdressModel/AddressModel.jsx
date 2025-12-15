@@ -1,35 +1,46 @@
 import React, { useState } from 'react'
-import styles from'./AddressModel.module.css'
+import styles from './AddressModel.module.css'
+import { useDispatch } from 'react-redux';
+import { addAddressThunk } from '../../redux/slices/addressSlice';
 
 
-function AddressModel({ showAddressModel, onClose,address,setAddress }) {
-    const [tempAddress, setTempAddress] = useState({
-        tempName: "",
-        tempPhoneNo: 0,
-        tempAddress: "",
-        tempCity: "",
-        tempState: "",
-        tempCountry: "",
-        tempPincode: 0,
-      });
+function AddressModel({ showAddressModel, onClose }) {
+  const dispatch = useDispatch();
 
-      const handleChange = (e) => {
-        setTempAddress({
-          ...tempAddress,
-          [e.target.name]: e.target.value,
-        });
-      };
-      const handleSubmit=()=>{
-        const newAddress=[...address,tempAddress]
-        setAddress(newAddress)
-        onClose();
-        const localAddress=JSON.stringify(newAddress)
-        localStorage.setItem("userAddress",localAddress)
-      }
- return (
+  const [tempAddress, setTempAddress] = useState({
+    tempName: "",
+    tempPhoneNo: "",
+    tempAddress: "",
+    tempCity: "",
+    tempState: "",
+    tempCountry: "",
+    tempPincode: "",
+  });
+
+  const handleChange = (e) => {
+    setTempAddress({
+      ...tempAddress,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    // Validation 
+    if (!tempAddress.tempName || !tempAddress.tempAddress) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    // Add to backend
+    dispatch(addAddressThunk(tempAddress));
+
+    // Close modal
+    onClose();
+  };
+  return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
-        
+
         <div className={styles.modalTitle}>Add New Address</div>
 
         <div className={styles.inputGroup}>

@@ -1,61 +1,95 @@
-import React, { useState } from 'react'
-import styles from './Checkout.module.css'
-import AddressModel from '../AdressModel/AddressModel';
-import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import styles from "./Checkout.module.css";
+import AddressModel from "../AdressModel/AddressModel";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { placeOrderThunk } from "../../redux/slices/orderSlice";
+import { getCartThunk } from "../../redux/slices/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function CheckoutComp() {
-    const [showAddressModel, setShowAddressModel] = useState(false);
-    const localAddress = JSON.parse(localStorage.getItem("userAddress"));
-    const [selectedAddress, setSelectedAddress] = useState({});
-    const setaddress = localAddress ? localAddress : []
-    const [address, setAddress] = useState(setaddress);
+  const [showAddressModel, setShowAddressModel] = useState(false);
 
+  // const localAddress = JSON.parse(localStorage.getItem("userAddress"));
+  const { addresses } = useSelector(state => state.address);
 
-    // const { stateCart } = useCart();
-     const { myCart } = useSelector((state) => state.cart);
+  const [address, setAddress] = useState(addresses || []);
+  debugger
+  const [selectedAddress, setSelectedAddress] = useState({});
 
-    const finalPrice = myCart.reduce(
-        (acc, curr) => (acc += curr.originalPrice * curr.qty),
-        0
-    );
-    const Discount = myCart.reduce(
-        (acc, curr) => (acc += ((curr.originalPrice - curr.price) * curr.qty)),
-        0
-    );
-    const total = finalPrice - Discount;
-    const HandleOrder =()=>
-    {
-        if(Object.keys(selectedAddress).length)
-        toast.success("Order Placed", {
-            position: "bottom-center",
-            autoClose: 2000,
-          });
-        else{
-            toast.error("Please Select Address", {
-                position: "bottom-center",
-                autoClose: 2000,
-              });
-        }
+  const { myCart } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // -----------------------------
+  // Price Calculations
+  // -----------------------------
+  const finalPrice = myCart.reduce(
+    (acc, curr) => acc + curr.originalPrice * curr.qty,
+    0
+  );
+
+  const Discount = myCart.reduce(
+    (acc, curr) => acc + (curr.originalPrice - curr.price) * curr.qty,
+    0
+  );
+
+  const total = finalPrice - Discount;
+
+  // -----------------------------
+  // PLACE ORDER
+  // -----------------------------
+  const HandleOrder = async () => {
+    if (!Object.keys(selectedAddress).length) {
+      toast.error("Please Select Address", {
+        position: "bottom-center",
+        autoClose: 2000,
+      });
+      return;
     }
 
-    // const bgColor=(item)=>
-    // {
-    //     if(item.tempName===selectedAddress.tempName)
-    //     {
-    //         return "#29b9f0ff"
-    //     }
-    //     else return "#070720"
-    // }
-      const isSelected = (item) =>
-    selectedAddress.tempName === item.tempName ? styles.selectedAddress : "";
+    // Create order payload
+    const items = myCart.map((item) => ({
+      _id: item._id,
+      name: item.name,
+      price: item.price,
+      qty: item.qty,
+      thumbnail: item.thumbnail,
+    }));
 
+    try {
+      await dispatch(
+        placeOrderThunk({
+          items,
+          total,
+          address: selectedAddress,
+        })
+      ).unwrap();
 
-    // console.log( ?"yes":"no")
-    return (
+      // Backend clears cart → refresh Redux cart
+      dispatch(getCartThunk());
+
+      toast.success("Order Placed Successfully!", {
+        position: "bottom-center",
+        autoClose: 2000,
+      });
+
+      navigate("/orders");
+    } catch (err) {
+      toast.error("Failed to place order", {
+        position: "bottom-center",
+        autoClose: 2000,
+      });
+    }
+  };
+
+  const isSelected = (item) =>
+  selectedAddress?._id === item._id ? styles.selectedAddress : "";
+
+  return (
     <div className={styles.pageWrapper}>
       <div className={styles.checkoutPageContainer}>
-        
         {/* LEFT: ADDRESS SECTION */}
         <div className={styles.addressSection}>
           <h2 className={styles.sectionHeader}>Saved Addresses</h2>
@@ -67,8 +101,12 @@ function CheckoutComp() {
               onClick={() => setSelectedAddress(item)}
             >
               <p className={styles.addressName}>{item.tempName}</p>
-              <p>{item.tempAddress}, {item.tempCity}, {item.tempState}</p>
-              <p>{item.tempCountry} - {item.tempPincode}</p>
+              <p>
+                {item.tempAddress}, {item.tempCity}, {item.tempState}
+              </p>
+              <p>
+                {item.tempCountry} - {item.tempPincode}
+              </p>
               <p>Phone: {item.tempPhoneNo}</p>
             </div>
           ))}
@@ -97,7 +135,9 @@ function CheckoutComp() {
 
             {myCart.map((item) => (
               <div key={item._id} className={styles.summaryListItem}>
-                <p>{item.name} ({item.qty})</p>
+                <p>
+                  {item.name} ({item.qty})
+                </p>
                 <p>₹{item.price * item.qty}</p>
               </div>
             ))}
@@ -130,11 +170,16 @@ function CheckoutComp() {
 
               <h3 className={styles.addressHeader}>Delivery Address:</h3>
 
-              {Object.keys(selectedAddress).length > 0 ? (
+              {Object.keys(selectedAddress).length ? (
                 <div className={styles.finalAddressBox}>
                   <p className={styles.addressName}>{selectedAddress.tempName}</p>
-                  <p>{selectedAddress.tempAddress}, {selectedAddress.tempCity}, {selectedAddress.tempState}</p>
-                  <p>{selectedAddress.tempCountry} - {selectedAddress.tempPincode}</p>
+                  <p>
+                    {selectedAddress.tempAddress}, {selectedAddress.tempCity},{" "}
+                    {selectedAddress.tempState}
+                  </p>
+                  <p>
+                    {selectedAddress.tempCountry} - {selectedAddress.tempPincode}
+                  </p>
                   <p>Phone: {selectedAddress.tempPhoneNo}</p>
                 </div>
               ) : (
@@ -151,11 +196,9 @@ function CheckoutComp() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
 }
 
-
-export default CheckoutComp
+export default CheckoutComp;

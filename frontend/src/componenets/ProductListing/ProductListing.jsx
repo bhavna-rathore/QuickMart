@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ProductListing.module.css";
 import filterStyles from "./FilterSidebar.module.css";
 
@@ -22,6 +22,7 @@ import {
   addToWishlistThunk,
   removeFromWishlistThunk
 } from "../../redux/slices/wishlistSlice";
+import { fetchAddressesThunk } from "../../redux/slices/addressSlice";
 
 export function ProductListing() {
   const dispatch = useDispatch();
@@ -32,6 +33,11 @@ export function ProductListing() {
   const { myCart } = useSelector(state => state.cart);
   const { myWishlist = [] } = useSelector(state => state.wishlist);
   const { isAuth } = useSelector(state => state.auth);
+// FETCH addresses from backend on mount
+  useEffect(() => {
+    debugger
+    if (isAuth) dispatch(fetchAddressesThunk());
+  }, [dispatch, isAuth]);
 
   const { product } = stateProduct;
   const { priceFilter, ratingFilter, categoryFilter, searchFilter } = stateFilter;

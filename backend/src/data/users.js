@@ -20,7 +20,9 @@ const users = [
 
     // IMPORTANT
     cart: [],
-    wishlist: []
+    wishlist: [],
+    addresses: []
+
   }
 
 ];
