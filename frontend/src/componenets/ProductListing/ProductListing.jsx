@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProductListing.module.css";
 import filterStyles from "./FilterSidebar.module.css";
 
@@ -23,23 +23,29 @@ import {
   removeFromWishlistThunk
 } from "../../redux/slices/wishlistSlice";
 import { fetchAddressesThunk } from "../../redux/slices/addressSlice";
+import { fetchProductsThunk } from "../../redux/slices/productSlice";
 
 export function ProductListing() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const stateProduct = useSelector(state => state.products);
+  // const stateProduct = useSelector(state => state.products);
   const stateFilter = useSelector(state => state.filter);
   const { myCart } = useSelector(state => state.cart);
   const { myWishlist = [] } = useSelector(state => state.wishlist);
   const { isAuth } = useSelector(state => state.auth);
-// FETCH addresses from backend on mount
-  useEffect(() => {
-    
-    if (isAuth) dispatch(fetchAddressesThunk());
-  }, [dispatch, isAuth]);
+  const { products, page, totalPages, loading } = useSelector(
+    (state) => state.products
+  );
 
-  const { product } = stateProduct;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // FETCH addresses from backend on mount
+  useEffect(() => {
+    dispatch(fetchProductsThunk({ page: currentPage, limit: 12 }));
+  }, [dispatch, currentPage]);
+
+
   const { priceFilter, ratingFilter, categoryFilter, searchFilter } = stateFilter;
 
   /* ------------------- FILTERS ------------------- */
@@ -69,7 +75,7 @@ export function ProductListing() {
     return result;
   };
 
-  const filteredProducts = applyFilters(product);
+  const filteredProducts = applyFilters(products);
 
   /* ------------------- CART ------------------- */
   const HandleCart = (item) => {
@@ -119,88 +125,88 @@ export function ProductListing() {
   };
 
   return (
-   <div className={styles.pageLayout}>
-      
+    <div className={styles.pageLayout}>
+
       {/* ---------------- FILTER SIDEBAR (KEPT SAME FOR NOW) ---------------- */}
-    <div className={filterStyles.sidebar}>
-  <h2 className={filterStyles.sidebarTitle}>Filters</h2>
+      <div className={filterStyles.sidebar}>
+        <h2 className={filterStyles.sidebarTitle}>Filters</h2>
 
-  {/* PRICE */}
-  <div className={filterStyles.section}>
-    <h3>Price</h3>
+        {/* PRICE */}
+        <div className={filterStyles.section}>
+          <h3>Price</h3>
 
-    <div className={filterStyles.option}>
-      <input
-        type="radio"
-        name="priceFilter"
-        value="lowToHigh"
-        checked={priceFilter === "lowToHigh"}
-        onChange={(e) => dispatch(setPriceFilter(e.target.value))}
-      />
-      <label>Low to High</label>
-    </div>
+          <div className={filterStyles.option}>
+            <input
+              type="radio"
+              name="priceFilter"
+              value="lowToHigh"
+              checked={priceFilter === "lowToHigh"}
+              onChange={(e) => dispatch(setPriceFilter(e.target.value))}
+            />
+            <label>Low to High</label>
+          </div>
 
-    <div className={filterStyles.option}>
-      <input
-        type="radio"
-        name="priceFilter"
-        value="highToLow"
-        checked={priceFilter === "highToLow"}
-        onChange={(e) => dispatch(setPriceFilter(e.target.value))}
-      />
-      <label>High to Low</label>
-    </div>
-  </div>
+          <div className={filterStyles.option}>
+            <input
+              type="radio"
+              name="priceFilter"
+              value="highToLow"
+              checked={priceFilter === "highToLow"}
+              onChange={(e) => dispatch(setPriceFilter(e.target.value))}
+            />
+            <label>High to Low</label>
+          </div>
+        </div>
 
-  {/* CATEGORY */}
-  <div className={filterStyles.section}>
-    <h3>Category</h3>
+        {/* CATEGORY */}
+        <div className={filterStyles.section}>
+          <h3>Category</h3>
 
-    {["Action", "Adventure", "RPG", "Strategy", "Sports"].map((cat) => (
-      <div className={filterStyles.option} key={cat}>
-        <input
-          type="checkbox"
-          value={cat}
-          checked={categoryFilter.includes(cat)}
-          onChange={(e) => {
-            if (e.target.checked) dispatch(addCategoryFilter(cat));
-            else dispatch(removeCategoryFilter(cat));
-          }}
-        />
-        <label>{cat}</label>
+          {["Action", "Adventure", "RPG", "Strategy", "Sports"].map((cat) => (
+            <div className={filterStyles.option} key={cat}>
+              <input
+                type="checkbox"
+                value={cat}
+                checked={categoryFilter.includes(cat)}
+                onChange={(e) => {
+                  if (e.target.checked) dispatch(addCategoryFilter(cat));
+                  else dispatch(removeCategoryFilter(cat));
+                }}
+              />
+              <label>{cat}</label>
+            </div>
+          ))}
+        </div>
+
+        {/* RATING */}
+        <div className={filterStyles.section}>
+          <h3>Ratings</h3>
+          <input
+            type="range"
+            min="0"
+            max="5"
+            step="0.5"
+            value={ratingFilter}
+            onChange={(e) => dispatch(setRatingFilter(Number(e.target.value)))}
+            className={filterStyles.slider}
+          />
+          <p className={filterStyles.ratingLabel}>
+            Minimum Rating: {ratingFilter}
+          </p>
+        </div>
+
+        <button
+          className={filterStyles.resetBtn}
+          onClick={() => dispatch(resetFilters())}
+        >
+          Reset Filters
+        </button>
       </div>
-    ))}
-  </div>
-
-  {/* RATING */}
-  <div className={filterStyles.section}>
-    <h3>Ratings</h3>
-    <input
-      type="range"
-      min="0"
-      max="5"
-      step="0.5"
-      value={ratingFilter}
-      onChange={(e) => dispatch(setRatingFilter(Number(e.target.value)))}
-      className={filterStyles.slider}
-    />
-    <p className={filterStyles.ratingLabel}>
-      Minimum Rating: {ratingFilter}
-    </p>
-  </div>
-
-  <button
-    className={filterStyles.resetBtn}
-    onClick={() => dispatch(resetFilters())}
-  >
-    Reset Filters
-  </button>
-</div>
 
 
       {/* ---------------- PRODUCT GRID ---------------- */}
       <div style={{ marginLeft: "14vw", width: "100%" }}>
-        
+
         <h1 style={{ margin: "5rem auto 0", fontSize: "2rem" }}>
           Showing all Products ({filteredProducts.length})
         </h1>
@@ -212,7 +218,7 @@ export function ProductListing() {
 
             return (
               <div className={styles.card} key={item._id}>
-                
+
                 <NavLink to={`/singleproduct/${item._id}`}>
                   <img
                     src={item.thumbnail}
@@ -253,6 +259,30 @@ export function ProductListing() {
               </div>
             );
           })}
+        </div>
+        <div className={styles.pagination}>
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            Prev
+          </button>
+
+          {[...Array(totalPages)].map((item, i) => (
+            <button
+              key={i}
+              className={currentPage === i + 1 ? styles.activePage : ""}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

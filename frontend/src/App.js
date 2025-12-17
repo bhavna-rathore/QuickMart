@@ -16,7 +16,7 @@ import { WishListPage } from "./Pages/WishlistPage";
 import Checkout from "./Pages/Checkout";
 import Footer from "./layouts/Footer/Footer";
 import { useEffect } from "react";
-import { fetchCategories, fetchProducts } from "./redux/slices/productSlice";
+import { fetchCategories, fetchProductsThunk } from "./redux/slices/productSlice";
 import { useDispatch } from "react-redux";
 import OrdersPage from "./Pages/OrdersPage";
 
@@ -25,7 +25,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProductsThunk());
     dispatch(fetchCategories());
   }, []);
 
