@@ -262,28 +262,62 @@ export function ProductListing() {
         </div>
         <div className={styles.pagination}>
           <button
+            className={styles.navBtn}
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p) => p - 1)}
           >
-            Prev
+            ‹ Prev
           </button>
 
-          {[...Array(totalPages)].map((item, i) => (
-            <button
-              key={i}
-              className={currentPage === i + 1 ? styles.activePage : ""}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
+          <div className={styles.pageNumbers}>
+            {[...Array(totalPages)].map((_, i) => {
+              const pageNum = i + 1;
+
+              // Show only nearby pages (window = 2)
+              if (
+                pageNum === 1 ||
+                pageNum === totalPages ||
+                Math.abs(pageNum - currentPage) <= 2
+              ) {
+                return (
+                  <button
+                    key={pageNum}
+                    className={`${styles.pageBtn} ${currentPage === pageNum ? styles.activePage : ""
+                      }`}
+                    aria-current={currentPage === pageNum ? "page" : undefined}
+                    onClick={() =>{ debugger
+                      setCurrentPage(pageNum)}}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              }
+
+              // Ellipsis logic
+              if (
+                pageNum === currentPage - 3 ||
+                pageNum === currentPage + 3
+              ) {
+                return (
+                  <span key={pageNum} className={styles.ellipsis}>
+                    …
+                  </span>
+                );
+              }
+
+              return null;
+            })}
+          </div>
+
           <button
+            className={styles.navBtn}
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => p + 1)}
           >
-            Next
+            Next ›
           </button>
         </div>
+
       </div>
     </div>
   );
