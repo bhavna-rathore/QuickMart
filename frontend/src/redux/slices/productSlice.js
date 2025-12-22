@@ -4,17 +4,28 @@ import api from "../../api/apiClient";
 // Fetch paginated products
 export const fetchProductsThunk = createAsyncThunk(
   "products/fetch",
-  async ({ page = 1, limit = 12 }, { rejectWithValue }) => {
+  async ({ page = 1, limit = 12, filters = {} }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(
-        `/api/products?page=${page}&limit=${limit}`
-      );
-      return data; // { products, page, totalPages, totalItems }
+      const params = new URLSearchParams({
+        page,
+        limit,
+      });
+
+      if (filters.search) params.append("search", filters.search);
+      if (filters.sort) params.append("sort", filters.sort);
+      if (filters.rating) params.append("rating", filters.rating);
+      if (filters.categories?.length) {
+        params.append("category", filters.categories.join(","));
+      }
+
+      const { data } = await api.get(`/api/products?${params.toString()}`);
+      return data;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
     }
   }
 );
+
 
 // Fetch categories
 export const fetchCategories = createAsyncThunk(

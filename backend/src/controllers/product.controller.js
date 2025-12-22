@@ -1,27 +1,44 @@
 import products from "../data/products.js";
 
 export const getAllProducts = (req, res) => {
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 12;
+  let result = [...products];
 
-  const totalItems = products.length;
-  const totalPages = Math.ceil(totalItems / limit);
+  const {
+    page = 1,
+    limit = 12,
+    sort,
+    rating,
+    search,
+    category,
+  } = req.query;
 
-  if (page > totalPages && totalPages !== 0) {
-    return res.status(400).json({ errors: ["Invalid page number"] });
+  if (category) {
+    const cats = category.split(",");
+    result = result.filter(p => cats.includes(p.categoryName));
   }
 
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
+  if (rating) {
+    result = result.filter(p => p.rating >= Number(rating));
+  }
 
-  const paginatedProducts = products.slice(startIndex, endIndex);
+  if (search) {
+    result = result.filter(p =>
+      p.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
+  if (sort === "lowToHigh") result.sort((a, b) => a.price - b.price);
+  if (sort === "highToLow") result.sort((a, b) => b.price - a.price);
+
+  const totalItems = result.length;
+  const totalPages = Math.ceil(totalItems / limit);
+  const start = (page - 1) * limit;
 
   res.json({
-    products: paginatedProducts,
-    page,
-    limit,
+    products: result.slice(start, start + Number(limit)),
+    page: Number(page),
+    totalPages,
     totalItems,
-    totalPages
   });
 };
 
