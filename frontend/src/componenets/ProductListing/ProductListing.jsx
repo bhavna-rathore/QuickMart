@@ -285,8 +285,9 @@ export function ProductListing() {
                     className={`${styles.pageBtn} ${currentPage === pageNum ? styles.activePage : ""
                       }`}
                     aria-current={currentPage === pageNum ? "page" : undefined}
-                    onClick={() =>{ debugger
-                      setCurrentPage(pageNum)}}
+                    onClick={() => {
+                      setCurrentPage(pageNum)
+                    }}
                   >
                     {pageNum}
                   </button>

@@ -23,7 +23,6 @@ app.use("/api/user/cart", cartRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/user/address", addressRoutes);
 
-
 app.get("/", (req, res) => {
   res.send("Backend running (no DB yet)");
 });
