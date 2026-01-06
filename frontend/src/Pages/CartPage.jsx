@@ -1,10 +1,9 @@
 import { Cart } from "../componenets/Cart/Cart";
 
-export function CartPage()
-{
-    return(
+export function CartPage() {
+    return (
         <div>
-            <Cart/>
+            <Cart />
         </div>
     )
 }

@@ -27,7 +27,7 @@ export function Home()
 
     return(
         <div>
-            <h2 style={{fontSize:"3rem"}}>Featured Products</h2>
+            <h2 style={{fontSize:"4rem"}}>Featured Products</h2>
             <Carousel images={images} />
             <Category/>
         </div>
